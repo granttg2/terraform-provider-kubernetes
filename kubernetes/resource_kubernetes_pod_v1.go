@@ -195,6 +195,12 @@ func resourceKubernetesPodV1Read(ctx context.Context, d *schema.ResourceData, me
 	}
 	log.Printf("[INFO] Received pod: %#v", pod)
 
+	podIP := pod.Status.PodIP
+	err = d.Set("podip", podIP)
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
 	err = d.Set("metadata", flattenMetadata(pod.ObjectMeta, d, meta))
 	if err != nil {
 		return diag.FromErr(err)
