@@ -73,6 +73,11 @@ func resourceKubernetesPodSchemaV1() map[string]*schema.Schema {
 				}, false),
 			},
 		},
+		"pod_ip": {
+			Type:        schema.TypeString,
+			Description: "The pod IP Address",
+			Computed:    true,
+		},
 	}
 }
 
@@ -196,7 +201,7 @@ func resourceKubernetesPodV1Read(ctx context.Context, d *schema.ResourceData, me
 	log.Printf("[INFO] Received pod: %#v", pod)
 
 	podIP := pod.Status.PodIP
-	err = d.Set("podip", podIP)
+	err = d.Set("pod_ip", podIP)
 	if err != nil {
 		return diag.FromErr(err)
 	}

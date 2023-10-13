@@ -92,7 +92,7 @@ func flattenPodSpec(in v1.PodSpec) ([]interface{}, error) {
 	}
 	att["image_pull_secrets"] = flattenLocalObjectReferenceArray(in.ImagePullSecrets)
 
-	if in.OS.Name != "" {
+	if in.OS != nil && in.OS.Name != "" {
 		att["os"] = map[string]interface{}{
 			"name": in.OS.Name,
 		}
